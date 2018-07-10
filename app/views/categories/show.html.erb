@@ -1,0 +1,37 @@
+<br>
+<br>
+<p id="notice"><%= notice %></p>
+
+<h1>Categoría: <%= @category.name %></h1>
+<h3>Productos</h3>
+
+<% @category.products.each do |product|%>
+<ul>
+  <li><%= product.name %> <%= product.price %> <%= link_to "Borrar", category_product_path(@category, product), method: :delete%></li>
+  <!-- Se le pasan dos atributos según la url de rake routes -->
+</ul>
+<% end %>
+
+<%= form_with(model: [ @category, Product.new ], local: true) do |form| %>
+  <%= form.hidden_field :category_id, value: @category.id %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>
+
+
+
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
